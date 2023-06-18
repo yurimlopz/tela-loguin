@@ -7,8 +7,7 @@ const ValidacaoCadastro = React.createContext({
 })
 
 function semValidacao(dados){
-    console.log(dados)
     return {valido:true, texto: ""}
 }
 
-export default ValidacaoCadastro
+export default ValidacaoCadastro 
