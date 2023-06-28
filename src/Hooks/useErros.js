@@ -1,29 +1,37 @@
-import React, { useState} from 'react';
+import { useState } from 'react';
 
-function useErros(validacoes){
+function useErros(validacoes) {
     const estadoIncial = criarEstadoInicial(validacoes);
     const [erros, setErros] = useState(estadoIncial);
-    
-    function validarCampos(event){
-        const {name, value } = event.target;
-        const novoEstado ={...erros};
+
+    function validarCampos(event) {
+        const { name, value } = event.target;
+        const novoEstado = { ...erros };
         novoEstado[name] = validacoes[name](value);
         setErros(novoEstado)
-       
+
     }
 
-   return [erros, validarCampos];
+    function possoEnviar() {
+        for (let campo in erros) {
+            if (!erros[campo].valido) {
+                return false
+            }
+        }
+        
+        return true
+    }
+
+    return [erros, validarCampos, possoEnviar];
 }
 
-
-function criarEstadoInicial(validacoes){
+function criarEstadoInicial(validacoes) {
     const estadoIncial = {}
-        for(let campo in validacoes){
-            estadoIncial[campo] = {valido:false, texto:""}
-           
-        }
+    for (let campo in validacoes) {
+        estadoIncial[campo] = { valido: false, texto: "" }
+    }
 
-        return estadoIncial
+    return estadoIncial
 }
 
 export default useErros

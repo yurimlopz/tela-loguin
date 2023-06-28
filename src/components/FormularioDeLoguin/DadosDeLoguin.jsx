@@ -1,33 +1,38 @@
-import { TextField, Button,FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Button, FormControlLabel, Checkbox } from '@mui/material';
 
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import ValidacaoCadastro from '../contexts/ValidacaoCadastro';
 import useErros from '../../Hooks/useErros';
 
-export function DadosDeLoguin(){
 
-    const [usuario, setUsuario] = useState('');
-    const [senha, setSenha] = useState('');
-    const validacoes = useContext(ValidacaoCadastro)
-    const [erros,validarCampos] = useErros(validacoes)
-    console.log(erros)
-    console.log(validarCampos)
 
-    return(
-        <form>
-           
+export default function DadosDeloguin(aoEnviar) {
+const [usuario, setUsuario] = useState('');
+const [senha, setSenha] = useState('');
+const validacoes = useContext(ValidacaoCadastro);
+const [erros, validarCampos,possoEnviar] = useErros(validacoes);
+
+    return (
+        
+        <form onSubmit={(event)=>{
+            event.preventDefault()
+                if(possoEnviar()){
+                    aoEnviar({usuario,senha})
+                }
+                console.log({usuario,senha})
+        }}>
             <TextField
-            onChange={(event)=>{
-                setUsuario(event.target.value)
-            }}
-            value={usuario}
-            onBlur={validarCampos}
+                onChange={(event) => {
+                    setUsuario(event.target.value)
+                }}
+                value={usuario}
+                onBlur={validarCampos}
                 fullWidth
                 margin='normal'
                 label="Usuario"
                 variant='filled'
                 required
-                name='usuario' 
+                name='usuario'
                 id='Loguin'
                 type='text'
                 error={erros.usuario.valido}
@@ -35,7 +40,7 @@ export function DadosDeLoguin(){
             />
 
             <TextField
-                onChange={(event)=>{
+                onChange={(event) => {
                     setSenha(event.target.value)
                 }}
                 value={senha}
@@ -56,7 +61,7 @@ export function DadosDeLoguin(){
                 label="Manter Conectado"
             />
 
-            <Button margin="normal" fullWidth color='error' variant="contained">ACESSAR</Button>
+            <Button type='submit' margin="normal" fullWidth color='error' variant="contained">ACESSAR</Button>
         </form>
     )
 }

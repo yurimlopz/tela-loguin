@@ -1,23 +1,46 @@
 import React from 'react';
-import { Container } from "@mui/material";
-import { DadosDeLoguin } from './components/Form-Loguin';
+import { Grid, Box } from "@mui/material";
+import styled from "styled-components";
 import ValidacaoCadastro from './components/contexts/ValidacaoCadastro';
 import { validarUsuario, validarSenha } from './components/models/loguin';
+import FormularioDeLoguin from './components/FormularioDeLoguin/index.jsx'
+import backgoundimg from './images/background.jpg'
+import logo from './images/logo-lg.png'
+
+export const Icone = styled.img`
+    width: 100%;
+    height: 100vh;
+  `
+export const Logo = styled(Icone)`
+ height : 20%;
+  width: 35%;
+`
 
 
 
 function App() {
   return (
-    <Container  component='article' maxWidth="large">
-      <div>
-      <h1>Consistem</h1>
-      <ValidacaoCadastro.Provider value={{usuario:validarUsuario, senha:validarSenha}}>
-          <DadosDeLoguin/>
-      </ValidacaoCadastro.Provider>
-      </div>
-      <img src=''></img>
-    </Container>
+    <Grid container spacing={2}>
+      <Grid container
+        direction="column"
+        alignItems="center"
+        justifyContent="space-evenly"
+        item xs={4}
+      >
+        <Logo src={logo} />
+        <ValidacaoCadastro.Provider value={{ usuario: validarUsuario, senha: validarSenha }}>
+          <FormularioDeLoguin aoEnviar={aoEnviarLoguin} />
+        </ValidacaoCadastro.Provider>
+      </Grid>
+      <Grid item xs={8}>
+        <Icone src={backgoundimg} />
+      </Grid>
+    </Grid>
   );
+
+  function aoEnviarLoguin(dados) {
+    console.log(dados)
+  }
 }
 
 export default App;
