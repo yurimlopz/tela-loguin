@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import DadosDeLoguin from'./DadosDeLoguin.jsx'
 
 export default function FormularioDeLoguin() {

@@ -1,4 +1,4 @@
-import { TextField, Button, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, Button, FormControlLabel, Checkbox, Box } from '@mui/material';
 
 import React, { useContext, useState } from 'react';
 import ValidacaoCadastro from '../contexts/ValidacaoCadastro';
@@ -13,7 +13,7 @@ const validacoes = useContext(ValidacaoCadastro);
 const [erros, validarCampos,possoEnviar] = useErros(validacoes);
 
     return (
-        
+        <Box display='flex'>
         <form onSubmit={(event)=>{
             event.preventDefault()
                 if(possoEnviar()){
@@ -61,7 +61,8 @@ const [erros, validarCampos,possoEnviar] = useErros(validacoes);
                 label="Manter Conectado"
             />
 
-            <Button type='submit' margin="normal" fullWidth color='error' variant="contained">ACESSAR</Button>
+            <Button sx={{marginTop:'1.6rem'}} type='submit' margin="normal" fullWidth color='error' variant="contained">ACESSAR</Button>
         </form>
+        </Box>
     )
 }
